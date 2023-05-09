@@ -16,7 +16,7 @@ class Repository {
     if (json == null) {
       return null;
     }
-    return CurrentModel.fromJson(json);
+    return CurrentModel.fromJson(json["rates"][0]);
   }
 
   Future<List<ExchangeModel>>? getLastMonthData(
