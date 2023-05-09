@@ -1,13 +1,18 @@
+import 'package:json_annotation/json_annotation.dart';
+part 'json_list_model.g.dart';
+
+@JsonSerializable()
 class ExchangeModel {
   const ExchangeModel({
     required this.exchangeRate,
     required this.effectiveDate,
   });
-
+  @JsonKey(name: "mid")
   final double exchangeRate;
   final DateTime effectiveDate;
 
-  ExchangeModel.fromJson(Map<String, dynamic> json)
-      : exchangeRate = json["mid"] + 0.0,
-        effectiveDate = DateTime.parse(json["effectiveDate"]);
+  factory ExchangeModel.fromJson(Map<String, dynamic> json) =>
+      _$ExchangeModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ExchangeModelToJson(this);
 }
