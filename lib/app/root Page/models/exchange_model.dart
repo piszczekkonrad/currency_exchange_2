@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-part 'json_list_model.g.dart';
+part 'exchange_model.g.dart';
 
 @JsonSerializable()
 class ExchangeModel {

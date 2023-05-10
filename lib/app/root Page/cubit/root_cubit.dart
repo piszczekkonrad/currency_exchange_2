@@ -1,4 +1,4 @@
-import 'package:currency_exchange/app/root%20Page/models/current_model.dart';
+import 'package:currency_exchange/app/root%20Page/models/exchange_model.dart';
 import 'package:currency_exchange/app/root%20Page/repositories/repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,11 +18,12 @@ class RootCubit extends Cubit<RootState> {
       RootState(status: Status.loading),
     );
     try {
-      final currentModel = await _repository.getCurrentData(currency: currency);
+      final exchangeModel =
+          await _repository.getCurrentData(currency: currency);
       emit(
         RootState(
           status: Status.results,
-          currentModel: currentModel,
+          exchangeModel: exchangeModel,
         ),
       );
     } catch (error) {

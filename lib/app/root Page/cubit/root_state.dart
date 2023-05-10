@@ -2,10 +2,10 @@ part of 'root_cubit.dart';
 
 class RootState {
   final Status status;
-  final CurrentModel? currentModel;
+  final ExchangeModel? exchangeModel;
   final String? errorMessage;
   RootState({
-    this.currentModel,
+    this.exchangeModel,
     this.errorMessage,
     required this.status,
   });

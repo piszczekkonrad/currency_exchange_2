@@ -44,9 +44,9 @@ class RootPage extends StatelessWidget {
             case Status.results:
               return ResultsPage(
                 title: "Wymiana walut",
-                exchangeRate: state.currentModel!.exchangeRate.toString(),
+                exchangeRate: state.exchangeModel!.exchangeRate.toString(),
                 effectiveDate: DateFormat('dd-MM-yyyy')
-                    .format(state.currentModel!.effectiveDate),
+                    .format(state.exchangeModel!.effectiveDate),
                 currency: currency,
                 showLastMonth: showLastMonth,
               );

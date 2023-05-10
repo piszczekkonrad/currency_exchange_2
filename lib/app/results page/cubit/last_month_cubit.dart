@@ -1,5 +1,5 @@
 import 'package:currency_exchange/app/enums.dart';
-import 'package:currency_exchange/app/root%20Page/models/json_list_model.dart';
+import 'package:currency_exchange/app/root%20Page/models/exchange_model.dart';
 import 'package:currency_exchange/app/root%20Page/repositories/repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
