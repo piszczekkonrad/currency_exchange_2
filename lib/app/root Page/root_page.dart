@@ -1,8 +1,7 @@
 import 'package:currency_exchange/app/enums.dart';
+import 'package:currency_exchange/app/injection_container.dart';
 import 'package:currency_exchange/app/results%20page/results_page.dart';
 import 'package:currency_exchange/app/root%20Page/cubit/root_cubit.dart';
-import 'package:currency_exchange/app/root%20Page/data%20source/remote_data_source.dart';
-import 'package:currency_exchange/app/root%20Page/repositories/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -16,8 +15,7 @@ class RootPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => RootCubit(Repository(RemoteDataSource()))
-        ..getCurrent(currency: currency),
+      create: (context) => getIt<RootCubit>()..getCurrent(currency: currency),
       child: BlocBuilder<RootCubit, RootState>(
         builder: (context, state) {
           switch (state.status) {
