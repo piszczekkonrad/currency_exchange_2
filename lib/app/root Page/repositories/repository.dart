@@ -1,6 +1,8 @@
 import 'package:currency_exchange/app/root%20Page/data%20source/remote_data_source.dart';
 import 'package:currency_exchange/app/root%20Page/models/exchange_model.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class Repository {
   Repository(this._remoteDataSource);
 
