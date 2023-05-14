@@ -41,7 +41,7 @@ dependencies:
   json_annotation: ^4.7.0
   freezed_annotation: ^2.2.0
   get_it: ^7.6.0
-  injectable: ^2.1.1
+  injectable: ^1.5.3
 
 dev_dependencies:
   flutter_test:
@@ -53,10 +53,11 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
-  build_runner: ^2.3.3
+  build_runner: ^2.1.7
   json_serializable: ^6.5.4
-  freezed: ^2.3.3
-  injectable_generator: ^2.1.4
+  freezed: ^2.1.0
+  injectable_generator: ^1.5.2
+  mocktail: ^0.3.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
