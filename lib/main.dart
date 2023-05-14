@@ -1,7 +1,9 @@
 import 'package:currency_exchange/app/home%20page/my_home_page.dart';
+import 'package:currency_exchange/app/injection_container.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  configureDependencies();
   runApp(const MyApp());
 }
 

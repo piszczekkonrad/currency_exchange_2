@@ -1,11 +1,15 @@
-import 'package:currency_exchange/app/root%20Page/models/current_model.dart';
+import 'package:currency_exchange/app/root%20Page/models/exchange_model.dart';
 import 'package:currency_exchange/app/root%20Page/repositories/repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../enums.dart';
 
 part 'root_state.dart';
+part 'root_cubit.freezed.dart';
 
+@injectable
 class RootCubit extends Cubit<RootState> {
   RootCubit(this._repository) : super(RootState(status: Status.loading));
 
@@ -18,11 +22,12 @@ class RootCubit extends Cubit<RootState> {
       RootState(status: Status.loading),
     );
     try {
-      final currentModel = await _repository.getCurrentData(currency: currency);
+      final exchangeModel =
+          await _repository.getCurrentData(currency: currency);
       emit(
         RootState(
           status: Status.results,
-          currentModel: currentModel,
+          exchangeModel: exchangeModel,
         ),
       );
     } catch (error) {

@@ -1,13 +1,14 @@
 import 'package:currency_exchange/app/root%20Page/data%20source/remote_data_source.dart';
-import 'package:currency_exchange/app/root%20Page/models/current_model.dart';
-import 'package:currency_exchange/app/root%20Page/models/json_list_model.dart';
+import 'package:currency_exchange/app/root%20Page/models/exchange_model.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class Repository {
   Repository(this._remoteDataSource);
 
   final RemoteDataSource _remoteDataSource;
 
-  Future<CurrentModel?> getCurrentData({
+  Future<ExchangeModel?> getCurrentData({
     required String currency,
   }) async {
     final json = await _remoteDataSource.getCurrentData(
@@ -16,7 +17,7 @@ class Repository {
     if (json == null) {
       return null;
     }
-    return CurrentModel.fromJson(json);
+    return ExchangeModel.fromJson(json["rates"][0]);
   }
 
   Future<List<ExchangeModel>>? getLastMonthData(

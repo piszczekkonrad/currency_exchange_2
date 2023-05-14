@@ -1,9 +1,7 @@
 import 'package:currency_exchange/app/enums.dart';
-import 'package:currency_exchange/app/results%20page/cubit/last_month_cubit.dart';
+import 'package:currency_exchange/app/injection_container.dart';
 import 'package:currency_exchange/app/results%20page/results_page.dart';
 import 'package:currency_exchange/app/root%20Page/cubit/root_cubit.dart';
-import 'package:currency_exchange/app/root%20Page/data%20source/remote_data_source.dart';
-import 'package:currency_exchange/app/root%20Page/repositories/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -17,8 +15,7 @@ class RootPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => RootCubit(Repository(RemoteDataSource()))
-        ..getCurrent(currency: currency),
+      create: (context) => getIt<RootCubit>()..getCurrent(currency: currency),
       child: BlocBuilder<RootCubit, RootState>(
         builder: (context, state) {
           switch (state.status) {
@@ -45,9 +42,9 @@ class RootPage extends StatelessWidget {
             case Status.results:
               return ResultsPage(
                 title: "Wymiana walut",
-                exchangeRate: state.currentModel!.exchangeRate.toString(),
+                exchangeRate: state.exchangeModel!.exchangeRate.toString(),
                 effectiveDate: DateFormat('dd-MM-yyyy')
-                    .format(state.currentModel!.effectiveDate),
+                    .format(state.exchangeModel!.effectiveDate),
                 currency: currency,
                 showLastMonth: showLastMonth,
               );

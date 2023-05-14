@@ -1,8 +1,7 @@
 import 'package:currency_exchange/app/enums.dart';
+import 'package:currency_exchange/app/injection_container.dart';
 import 'package:currency_exchange/app/results%20page/cubit/last_month_cubit.dart';
-import 'package:currency_exchange/app/root%20Page/data%20source/remote_data_source.dart';
-import 'package:currency_exchange/app/root%20Page/models/json_list_model.dart';
-import 'package:currency_exchange/app/root%20Page/repositories/repository.dart';
+import 'package:currency_exchange/app/root%20Page/models/exchange_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -39,12 +38,11 @@ class ResultsPage extends StatelessWidget {
                   currency: currency.toUpperCase(),
                 ),
                 BlocProvider(
-                  create: (context) =>
-                      LastMonthCubit(Repository(RemoteDataSource()))
-                        ..getLastMonthData(
-                          currency: currency,
-                          showLastMonth: showLastMonth,
-                        ),
+                  create: (context) => getIt<LastMonthCubit>()
+                    ..getLastMonthData(
+                      currency: currency,
+                      showLastMonth: showLastMonth,
+                    ),
                   child: BlocBuilder<LastMonthCubit, LastMonthState>(
                     builder: (context, state) {
                       switch (state.viewType) {

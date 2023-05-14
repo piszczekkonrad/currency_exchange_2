@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
 
+@injectable
 class RemoteDataSource {
   Future<Map<String, dynamic>?> getCurrentData({
     required String currency,
