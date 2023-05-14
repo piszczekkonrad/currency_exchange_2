@@ -1,11 +1,13 @@
 import 'package:currency_exchange/app/root%20Page/models/exchange_model.dart';
 import 'package:currency_exchange/app/root%20Page/repositories/repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../enums.dart';
 
 part 'root_state.dart';
+part 'root_cubit.freezed.dart';
 
 @injectable
 class RootCubit extends Cubit<RootState> {

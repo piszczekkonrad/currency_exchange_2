@@ -1,12 +1,10 @@
 part of 'root_cubit.dart';
 
-class RootState {
-  final Status status;
-  final ExchangeModel? exchangeModel;
-  final String? errorMessage;
-  RootState({
-    this.exchangeModel,
-    this.errorMessage,
-    required this.status,
-  });
+@freezed
+class RootState with _$RootState {
+  factory RootState({
+    ExchangeModel? exchangeModel,
+    @Default(Status.loading) Status status,
+    String? errorMessage,
+  }) = _RootState;
 }

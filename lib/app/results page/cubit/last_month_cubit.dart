@@ -2,9 +2,11 @@ import 'package:currency_exchange/app/enums.dart';
 import 'package:currency_exchange/app/root%20Page/models/exchange_model.dart';
 import 'package:currency_exchange/app/root%20Page/repositories/repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
 part 'last_month_state.dart';
+part 'last_month_cubit.freezed.dart';
 
 @injectable
 class LastMonthCubit extends Cubit<LastMonthState> {
