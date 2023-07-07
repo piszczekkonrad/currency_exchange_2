@@ -47,13 +47,7 @@ class ResultsPage extends StatelessWidget {
                     builder: (context, state) {
                       switch (state.viewType) {
                         case ViewType.current:
-                          return TextButton(
-                              onPressed: () {
-                                context.read<LastMonthCubit>().getLastMonthData(
-                                    currency: currency, showLastMonth: true);
-                              },
-                              child: const Text(
-                                  "v Pokaż kursy z ostatnich 30 dni v"));
+                          return CurrentTextButton(currency: currency);
                         case ViewType.loading:
                           return const CircularProgressIndicator();
                         case ViewType.error:
@@ -73,6 +67,26 @@ class ResultsPage extends StatelessWidget {
   }
 }
 
+class CurrentTextButton extends StatelessWidget {
+  const CurrentTextButton({
+    Key? key,
+    required this.currency,
+  }) : super(key: key);
+
+  final String currency;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+        onPressed: () {
+          context
+              .read<LastMonthCubit>()
+              .getLastMonthData(currency: currency, showLastMonth: true);
+        },
+        child: const Text("v Pokaż kursy z ostatnich 30 dni v"));
+  }
+}
+
 class _DisplayLastMonthWidget extends StatelessWidget {
   const _DisplayLastMonthWidget({
     Key? key,
@@ -85,38 +99,64 @@ class _DisplayLastMonthWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView(children: [
-        TextButton(
-            onPressed: () {
-              context.read<LastMonthCubit>().hideLastMonthData();
-            },
-            child: const Text("^ Schowaj kursy z ostatnich 30 dni ^")),
+        const LastMonthTextButton(),
         for (final result in results)
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Container(
-              color: const Color.fromARGB(255, 216, 216, 216),
-              padding: const EdgeInsets.all(10),
-              child: Expanded(
-                  child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text("Kurs $currency na dzień:"),
-                      Text(
-                          DateFormat('dd-MM-yyyy').format(result.effectiveDate))
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                      "${result.exchangeRate.toString()} PLN")
-                ],
-              )),
-            ),
-          ),
+          LastMonthListViewItem(currency: currency, result: result),
       ]),
     );
+  }
+}
+
+class LastMonthListViewItem extends StatelessWidget {
+  const LastMonthListViewItem({
+    Key? key,
+    required this.currency,
+    required this.result,
+  }) : super(key: key);
+
+  final String currency;
+  final ExchangeModel result;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Container(
+        color: const Color.fromARGB(255, 216, 216, 216),
+        padding: const EdgeInsets.all(10),
+        child: Expanded(
+            child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text("Kurs $currency na dzień:"),
+                Text(DateFormat('dd-MM-yyyy').format(result.effectiveDate))
+              ],
+            ),
+            const SizedBox(height: 10),
+            Text(
+                style: const TextStyle(fontWeight: FontWeight.bold),
+                "${result.exchangeRate.toString()} PLN")
+          ],
+        )),
+      ),
+    );
+  }
+}
+
+class LastMonthTextButton extends StatelessWidget {
+  const LastMonthTextButton({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+        onPressed: () {
+          context.read<LastMonthCubit>().hideLastMonthData();
+        },
+        child: const Text("^ Schowaj kursy z ostatnich 30 dni ^"));
   }
 }
 
@@ -137,33 +177,54 @@ class _DisplayCurrentWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: Container(
-              color: Colors.grey,
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                children: [
-                  const SizedBox(height: 40),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text("Kurs $currency na dzień:"),
-                      Text(effectiveDate),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  Text(
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 24),
-                      "$exchangeRate PLN"),
-                  const SizedBox(height: 40),
-                ],
-              ),
-            ),
-          ),
+          child: CurrentListvViewItem(
+              currency: currency,
+              effectiveDate: effectiveDate,
+              exchangeRate: exchangeRate),
         ),
       ],
+    );
+  }
+}
+
+class CurrentListvViewItem extends StatelessWidget {
+  const CurrentListvViewItem({
+    Key? key,
+    required this.currency,
+    required this.effectiveDate,
+    required this.exchangeRate,
+  }) : super(key: key);
+
+  final String currency;
+  final String effectiveDate;
+  final String exchangeRate;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: Container(
+        color: Colors.grey,
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          children: [
+            const SizedBox(height: 40),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text("Kurs $currency na dzień:"),
+                Text(effectiveDate),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Text(
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                "$exchangeRate PLN"),
+            const SizedBox(height: 40),
+          ],
+        ),
+      ),
     );
   }
 }
